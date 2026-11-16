@@ -1,1 +1,3 @@
 .venv/
+data/contracts.csv
+data/merged.csv
