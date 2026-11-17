@@ -28,12 +28,15 @@ name = st.text_input("Search a player")
 if name:
     df = df[df["player"].str.contains(name, case=False)]
 
-table = df[["player", "positionCode", "age", "cap_hit_m", "pred_m": "Model value ($M)", "ppg3", "toi3", "gap_m", "note"]].rename(
+table = df[
+    ["player", "positionCode", "age", "cap_hit_m", "pred_m", "ppg3", "toi3", "gap_m", "note"]
+].rename(
     columns={
         "player": "Player",
         "positionCode": "Pos",
         "age": "Age",
         "cap_hit_m": "Cap hit ($M)",
+        "pred_m": "Model value ($M)",
         "ppg3": "Pts/GP (3 yr)",
         "toi3": "TOI (3 yr)",
         "gap_m": "Gap ($M)",
@@ -42,6 +45,6 @@ table = df[["player", "positionCode", "age", "cap_hit_m", "pred_m": "Model value
 )
 st.dataframe(
     table.sort_values("Gap ($M)", ascending=False),
-        width="stretch",
+    width="stretch",
     hide_index=True,
 )
