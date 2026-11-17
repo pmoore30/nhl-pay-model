@@ -7,6 +7,7 @@ df = pd.read_csv("data/results.csv")
 df["age"] = df["age"].round().astype(int)
 df["cap_hit_m"] = (df["cap_hit"] / 1e6).round(2)
 df["gap_m"] = (df["gap_dollars"] / 1e6).round(2)
+df["pred_m"] = (df["predicted_pct"] / 100 * 104).round(2)
 df["ppg3"] = df["ppg3"].round(2)
 df["toi3"] = df["toi3"].round(1)
 df["note"] = df["note"].fillna("")
@@ -27,7 +28,7 @@ name = st.text_input("Search a player")
 if name:
     df = df[df["player"].str.contains(name, case=False)]
 
-table = df[["player", "positionCode", "age", "cap_hit_m", "ppg3", "toi3", "gap_m", "note"]].rename(
+table = df[["player", "positionCode", "age", "cap_hit_m", "pred_m": "Model value ($M)", "ppg3", "toi3", "gap_m", "note"]].rename(
     columns={
         "player": "Player",
         "positionCode": "Pos",
@@ -41,6 +42,6 @@ table = df[["player", "positionCode", "age", "cap_hit_m", "ppg3", "toi3", "gap_m
 )
 st.dataframe(
     table.sort_values("Gap ($M)", ascending=False),
-    use_container_width=True,
+        width="stretch",
     hide_index=True,
 )
